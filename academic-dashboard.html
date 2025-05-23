@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Dashboard - EduManage</title>
+    <link rel="stylesheet" href="landing-styles.css">
+    <link rel="stylesheet" href="academic-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1><span class="highlight">Edu</span>Manage</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="#" class="active">Academic</a></li>
+                <li><a href="login.html" class="btn-login">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="academic-container">
+        <div class="sidebar">
+            <ul class="academic-menu">
+                <li><a href="#grade-submission" class="active"><i class="fas fa-graduation-cap"></i> Grade Submission</a></li>
+                <li><a href="#attendance"><i class="fas fa-calendar-check"></i> Attendance</a></li>
+                <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <!-- Grade Submission Section -->
+            <section id="grade-submission" class="academic-section">
+                <h2>Grade Submission</h2>
+                <div class="card">
+                    <form id="gradeSubmissionForm" class="academic-form">
+                        <div class="form-group">
+                            <label for="studentId">Student ID</label>
+                            <input type="text" id="studentId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseId">Course ID</label>
+                            <input type="text" id="courseId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">Grade</label>
+                            <input type="number" id="grade" min="0" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="semester">Semester</label>
+                            <select id="semester" required>
+                                <option value="">Select Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Grade</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Attendance Section -->
+            <section id="attendance" class="academic-section">
+                <h2>Attendance Management</h2>
+                <div class="card">
+                    <form id="attendanceForm" class="academic-form">
+                        <div class="form-group">
+                            <label for="attendanceStudentId">Student ID</label>
+                            <input type="text" id="attendanceStudentId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceCourseId">Course ID</label>
+                            <input type="text" id="attendanceCourseId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceStatus">Status</label>
+                            <select id="attendanceStatus" required>
+                                <option value="">Select Status</option>
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                                <option value="late">Late</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceDate">Date</label>
+                            <input type="date" id="attendanceDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Mark Attendance</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="academic-section">
+                <h2>Performance Analytics</h2>
+                <div class="card">
+                    <div id="analyticsDashboard" class="analytics-dashboard">
+                        <!-- Analytics content will be dynamically inserted here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="academic-features.js"></script>
+</body>
+</html> 

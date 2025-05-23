@@ -1,0 +1,516 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #6a11cb;
+    --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    --secondary-color: #11998e;
+    --secondary-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --danger-color: #cb2d3e;
+    --danger-gradient: linear-gradient(135deg, #cb2d3e 0%, #ef473a 100%);
+    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    color: #333;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    width: 1000px;
+    max-width: 100%;
+    height: 600px;
+    max-height: 100vh;
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Login Form Side */
+.login-container {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.logo h1::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--primary-gradient);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.login-header h2 {
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #666;
+}
+
+.login-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+}
+
+.input-group i {
+    padding: 0 15px;
+    color: var(--primary-color);
+}
+
+.input-group input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.toggle-password {
+    cursor: pointer;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 8px;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: var(--transition);
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 0;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.4), rgba(106, 17, 203, 0.1));
+}
+
+.divider span {
+    padding: 0 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.social-login {
+    margin-bottom: 30px;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #ddd;
+    color: #333;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-google:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+.btn-google img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.btn-google i {
+    color: #DB4437;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: auto;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    position: relative;
+}
+
+.register-link a:hover {
+    color: #2575fc;
+}
+
+/* Image Side */
+.login-image {
+    flex: 1;
+    background-image: url('https://source.unsplash.com/random/1000x1000/?students');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(106, 17, 203, 0.8) 0%, rgba(37, 117, 252, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-content {
+    text-align: center;
+    color: white;
+    padding: 0 40px;
+    z-index: 1;
+}
+
+.image-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.image-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    opacity: 0.9;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    padding: 12px 30px;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+    }
+    
+    .login-image {
+        display: none;
+    }
+    
+    .login-container {
+        width: 100%;
+        padding: 30px 20px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-header, .form-group, .form-options, .btn-primary, .divider, .social-login, .register-link {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.form-options {
+    animation-delay: 0.4s;
+}
+
+.btn-primary {
+    animation-delay: 0.5s;
+}
+
+.divider {
+    animation-delay: 0.6s;
+}
+
+.social-login {
+    animation-delay: 0.7s;
+}
+
+.register-link {
+    animation-delay: 0.8s;
+}
+
+/* Error Message */
+.error-message {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--danger-color);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--danger-color);
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease forwards;
+    font-size: 14px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Forgot Password Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.4s ease forwards;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--danger-color);
+}
+
+.modal-content h2 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.success-message {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #2ecc71;
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease forwards;
+    font-size: 14px;
+}
+
+.info-message {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--primary-color);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease forwards;
+    font-size: 14px;
+}
+
+.highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.back-to-home {
+    display: inline-block;
+    padding: 10px 25px;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-home:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+} 

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EduManage</title>
+    <link rel="stylesheet" href="login-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase UI -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <h1><span class="highlight">Edu</span>Manage</h1>
+                </div>
+                <h2>EduManage</h2>
+                <p>Sign in to continue to EduManage</p>
+                <a href="landing.html" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            </div>
+            
+            <div class="login-form">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <i class="fas fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" id="forgot-password-link" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+                
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+                
+                <div class="social-login">
+                    <button id="google-signin" class="btn btn-google">
+                        <i class="fab fa-google"></i>
+                        Sign in with Google
+                    </button>
+                </div>
+                
+                <div class="register-link">
+                    <p>Don't have an account? <a href="#" id="check-email">Register Now</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-image">
+            <div class="image-overlay"></div>
+            <div class="image-content">
+                <h2>EduManage</h2>
+                <p>A comprehensive solution for managing student information, courses, and academic records.</p>
+                <a href="landing.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Reset Password</h2>
+            <p>Enter your email address and we'll send you a link to reset your password.</p>
+            <form id="reset-password-form">
+                <div class="form-group">
+                    <label for="reset-email">Email</label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="reset-email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div id="reset-message"></div>
+                <button type="submit" class="btn btn-primary">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAwZ5R3vLbUhZ0Ve9xfDplKpLFxn6t8jco",
+            authDomain: "student-management-syste-a8394.firebaseapp.com",
+            projectId: "student-management-syste-a8394",
+            storageBucket: "student-management-syste-a8394.firebasestorage.app",
+            messagingSenderId: "218048562419",
+            appId: "1:218048562419:web:1cd92e1fcd416c5cc96386",
+            measurementId: "G-QX15K5RB8F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Email/Password Login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log("User signed in:", user);
+                    window.location.href = "index.html";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error signing in:", errorMessage);
+                    
+                    // More user-friendly error messages based on Firebase error codes
+                    let userMessage = "";
+                    switch(errorCode) {
+                        case 'auth/invalid-email':
+                            userMessage = "Invalid email format. Please check your email address.";
+                            break;
+                        case 'auth/user-disabled':
+                            userMessage = "This account has been disabled. Please contact support.";
+                            break;
+                        case 'auth/user-not-found':
+                            userMessage = "No account found with this email. Please check your email or register.";
+                            break;
+                        case 'auth/wrong-password':
+                            userMessage = "Incorrect password. Please try again or use 'Forgot Password'.";
+                            break;
+                        case 'auth/too-many-requests':
+                            userMessage = "Too many failed login attempts. Please try again later or reset your password.";
+                            break;
+                        case 'auth/network-request-failed':
+                            userMessage = "Network error. Please check your internet connection and try again.";
+                            break;
+                        default:
+                            userMessage = "Login failed: " + errorMessage;
+                    }
+                    
+                    // Create or update error message element
+                    const errorElement = document.getElementById('login-error') || document.createElement('div');
+                    errorElement.id = 'login-error';
+                    errorElement.className = 'error-message';
+                    errorElement.textContent = userMessage;
+                    
+                    // Insert error message after the form
+                    const loginForm = document.getElementById('login-form');
+                    if (!document.getElementById('login-error')) {
+                        loginForm.parentNode.insertBefore(errorElement, loginForm.nextSibling);
+                    }
+                });
+        });
+
+        // Google Sign In
+        document.getElementById('google-signin').addEventListener('click', function() {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    // This gives you a Google Access Token
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    // The signed-in user info
+                    const user = result.user;
+                    console.log("Google user signed in:", user);
+                    window.location.href = "index.html";
+                }).catch((error) => {
+                    // Handle Errors here
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Google sign in error:", errorMessage);
+                    
+                    // More user-friendly error messages for Google Sign In
+                    let userMessage = "";
+                    switch(errorCode) {
+                        case 'auth/account-exists-with-different-credential':
+                            userMessage = "An account already exists with the same email but different sign-in credentials. Try signing in with a different method.";
+                            break;
+                        case 'auth/cancelled-popup-request':
+                        case 'auth/popup-closed-by-user':
+                            userMessage = "Sign-in process was cancelled. Please try again.";
+                            break;
+                        case 'auth/popup-blocked':
+                            userMessage = "Sign-in popup was blocked by your browser. Please enable popups for this site and try again.";
+                            break;
+                        case 'auth/network-request-failed':
+                            userMessage = "Network error. Please check your internet connection and try again.";
+                            break;
+                        default:
+                            userMessage = "Google sign in failed: " + errorMessage;
+                    }
+                    
+                    // Create or update error message element
+                    const errorElement = document.getElementById('login-error') || document.createElement('div');
+                    errorElement.id = 'login-error';
+                    errorElement.className = 'error-message';
+                    errorElement.textContent = userMessage;
+                    
+                    // Insert error message after the social login buttons
+                    const socialLogin = document.querySelector('.social-login');
+                    if (!document.getElementById('login-error')) {
+                        socialLogin.parentNode.insertBefore(errorElement, socialLogin.nextSibling);
+                    }
+                });
+        });
+
+        // Toggle password visibility
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Check if email exists for registration
+        document.getElementById('check-email').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get email from the login form if available
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert("Please enter your email in the form above first to check if you already have an account.");
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            // Show loading message
+            const registerLink = document.querySelector('.register-link p');
+            const originalText = registerLink.innerHTML;
+            registerLink.innerHTML = "Checking email...";
+            
+            // Check if the email exists in Firebase
+            fetch(`https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=${firebaseConfig.apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    identifier: email,
+                    continueUri: window.location.href
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset text
+                registerLink.innerHTML = originalText;
+                
+                if (data.registered === true) {
+                    // Email exists, show message
+                    alert("This email is already registered. Please use your password to sign in or use the 'Forgot Password' option if needed.");
+                } else {
+                    // Email doesn't exist, proceed with registration
+                    // For now we'll just alert since we don't have a registration page
+                    alert("This email is not registered yet. Please contact your administrator to create an account.");
+                }
+            })
+            .catch(error => {
+                console.error("Error checking email:", error);
+                registerLink.innerHTML = originalText;
+                alert("Error checking email. Please try again.");
+            });
+        });
+
+        // Forgot Password Modal
+        const modal = document.getElementById('forgot-password-modal');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const closeModal = document.querySelector('.close-modal');
+        const resetForm = document.getElementById('reset-password-form');
+        const resetMessage = document.getElementById('reset-message');
+
+        // Open modal
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'flex';
+            
+            // Pre-fill email if it's already entered in the login form
+            const loginEmail = document.getElementById('email').value;
+            if (loginEmail) {
+                document.getElementById('reset-email').value = loginEmail;
+            }
+        });
+
+        // Close modal when clicking X
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+            resetMessage.innerHTML = '';
+            resetForm.reset();
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+                resetMessage.innerHTML = '';
+                resetForm.reset();
+            }
+        });
+
+        // Handle password reset
+        resetForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('reset-email').value;
+            
+            // Validate email format first
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                resetMessage.innerHTML = '<div class="error-message">Invalid email format. Please check your email address.</div>';
+                return;
+            }
+            
+            resetMessage.innerHTML = '<div class="info-message">Verifying email...</div>';
+            
+            // First check if the email exists in Firebase
+            fetch(`https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=${firebaseConfig.apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    identifier: email,
+                    continueUri: window.location.href
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Check if this email exists in Firebase
+                if (data.registered === true) {
+                    // Email exists, send password reset
+                    resetMessage.innerHTML = '<div class="info-message">Sending reset email...</div>';
+                    
+                    sendPasswordResetEmail(auth, email)
+                        .then(() => {
+                            // Password reset email sent
+                            resetMessage.innerHTML = '<div class="success-message">Password reset email sent! Check your inbox.</div>';
+                            
+                            // Automatically close the modal after 3 seconds
+                            setTimeout(() => {
+                                modal.style.display = 'none';
+                                resetMessage.innerHTML = '';
+                                resetForm.reset();
+                            }, 3000);
+                        })
+                        .catch((error) => {
+                            const errorCode = error.code;
+                            let errorMsg = "Failed to send reset email. Please try again.";
+                            
+                            // Specific error messages
+                            if (errorCode === 'auth/too-many-requests') {
+                                errorMsg = "Too many requests. Please try again later.";
+                            } else if (errorCode === 'auth/network-request-failed') {
+                                errorMsg = "Network error. Please check your internet connection and try again.";
+                            }
+                            
+                            resetMessage.innerHTML = `<div class="error-message">${errorMsg}</div>`;
+                        });
+                } else {
+                    // Email doesn't exist, show error
+                    resetMessage.innerHTML = '<div class="error-message">No account found with this email address.</div>';
+                }
+            })
+            .catch(error => {
+                console.error("Error checking email:", error);
+                resetMessage.innerHTML = '<div class="error-message">Error verifying email. Please try again.</div>';
+            });
+        });
+    </script>
+</body>
+</html> 

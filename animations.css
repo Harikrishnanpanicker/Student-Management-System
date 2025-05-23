@@ -1,0 +1,540 @@
+/* Animations and Transitions */
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Shake Animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Loading Spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Apply animations to elements */
+.tab-pane {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.stat-card {
+    animation: slideUp 0.5s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Form input animations */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    transform: scale(1.01);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+/* Table row hover effect */
+.students-list tr {
+    transition: background-color 0.3s ease;
+}
+
+.students-list tr:hover {
+    background-color: rgba(66, 153, 225, 0.1);
+}
+
+/* Modal animations */
+.modal {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    animation: slideUp 0.4s ease-out;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Chart animations */
+.chart-container {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Tab button animations */
+.tab-btn {
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    transform: translateY(-2px);
+}
+
+.tab-btn.active {
+    animation: pulse 1s infinite;
+}
+
+/* Error shake animation */
+.error {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Success pulse animation */
+.success {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Dashboard stats animation delay */
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Attendance table animations */
+.attendance-list tr {
+    transition: all 0.3s ease;
+}
+
+.attendance-list tr:hover {
+    transform: scale(1.01);
+    background-color: rgba(66, 153, 225, 0.1);
+}
+
+/* Academic section animations */
+.analytics-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.analytics-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Performance table animations */
+.performance-table tr {
+    transition: all 0.3s ease;
+}
+
+.performance-table tr:hover {
+    background-color: rgba(66, 153, 225, 0.1);
+    transform: scale(1.01);
+}
+
+/* Export buttons hover effect */
+.export-options .btn {
+    transition: all 0.3s ease;
+}
+
+.export-options .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter options animations */
+.filter-options {
+    animation: slideUp 0.5s ease-out;
+}
+
+.filter-group {
+    transition: transform 0.3s ease;
+}
+
+.filter-group:hover {
+    transform: translateX(5px);
+}
+
+/* Performance Trends Styles */
+.performance-trends {
+    margin-top: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.trends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.trend-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trend-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.trend-card h4 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.trends-insights {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.insights-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.insight-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.insight-card:hover {
+    transform: translateX(5px);
+}
+
+.insight-card i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #3498db;
+}
+
+.insight-content h5 {
+    margin: 0 0 0.5rem 0;
+    color: #2c3e50;
+}
+
+.insight-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Chart animations */
+.trend-card canvas {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .trends-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .insights-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading state animations */
+.trend-card.loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.trend-card.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Success and error states for insights */
+.insight-card.success {
+    border-left: 4px solid #2ecc71;
+}
+
+.insight-card.warning {
+    border-left: 4px solid #f1c40f;
+}
+
+.insight-card.error {
+    border-left: 4px solid #e74c3c;
+}
+
+/* Notification System */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 300px;
+    max-width: 400px;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification i {
+    font-size: 1.2rem;
+}
+
+.notification.success {
+    border-left: 4px solid #2ecc71;
+}
+
+.notification.error {
+    border-left: 4px solid #e74c3c;
+}
+
+.notification.warning {
+    border-left: 4px solid #f1c40f;
+}
+
+.notification.info {
+    border-left: 4px solid #3498db;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0 5px;
+}
+
+/* Loading States */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-text {
+    margin-top: 10px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .trends-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .trends-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .notification {
+        left: 20px;
+        right: 20px;
+        min-width: auto;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .tab-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .insight-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .insight-card i {
+        margin: 0 0 10px 0;
+    }
+}
+
+/* Form Validation Styles */
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+    border-color: #e74c3c;
+    animation: shake 0.5s ease-in-out;
+}
+
+.form-group.error .error-message {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.form-group.success input,
+.form-group.success select,
+.form-group.success textarea {
+    border-color: #2ecc71;
+}
+
+/* Data Visualization Enhancements */
+.chart-container {
+    position: relative;
+    margin: 20px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Interactive Elements */
+.interactive-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.interactive-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-card:active {
+    transform: translateY(-2px);
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Focus States */
+:focus {
+    outline: 3px solid rgba(66, 153, 225, 0.5);
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .notification,
+    .loading-overlay,
+    .btn,
+    .tab-btn {
+        display: none !important;
+    }
+
+    .chart-container {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+} 

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage</title>
+    <link rel="stylesheet" href="landing-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Add this right after the opening body tag -->
+    <div class="scroll-indicator"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1><span class="highlight">Edu</span>Manage</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="login.html" class="btn-login">Login <i class="fas fa-sign-in-alt"></i></a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">Educational Management</span>
+                <h1>Smart <span class="gradient-text">Student</span> Management System</h1>
+                <p>A comprehensive platform designed to simplify student information management, enhance course organization, and streamline academic record-keeping.</p>
+                <div class="hero-buttons">
+                    <a href="login.html" class="btn btn-primary"><i class="fas fa-rocket"></i> Get Started</a>
+                    <a href="#features" class="btn btn-secondary">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Schools</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10k+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="university.jpg" alt="University Campus">
+                <div class="floating-card card-1">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Easy Enrollment</span>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Track Progress</span>
+                </div>
+            </div>
+        </div>
+        <div class="wave-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120">
+                <path fill="#ffffff" fill-opacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">What we offer</span>
+                <h2>Powerful Features</h2>
+                <p>Everything you need to manage student information efficiently</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Student Registration</h3>
+                    <p>Easily add new students with comprehensive details including personal information and course enrollment.</p>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Advanced Search</h3>
+                    <p>Find student information instantly using our powerful search system with multiple filters.</p>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Easy Updates</h3>
+                    <p>Update student information with our intuitive interface that saves automatically in real-time.</p>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Secure Storage</h3>
+                    <p>All data is securely stored in Firebase with real-time updates and proper authentication.</p>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Gain insights into student performance with detailed analytics and visual reports.</p>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access the system from any device with our responsive interface optimized for all screen sizes.</p>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
+        <div class="section-background">
+            <div class="bg-shape-1"></div>
+            <div class="bg-shape-2"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why choose us</span>
+                <h2>Key Benefits</h2>
+                <p>How our Student Management System transforms your institution</p>
+            </div>
+            <div class="benefits-container">
+                <div class="benefits-image">
+                    <img src="university.jpg" alt="University Campus">
+                    <div class="image-badge">
+                        <span>Trusted by 500+ Schools</span>
+                    </div>
+                </div>
+                <div class="benefits-content">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="benefit-text">
+                            <h3>Save Time</h3>
+                            <p>Reduce administrative workload by up to 40% with our efficient management system.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="benefit-text">
+                            <h3>Increase Productivity</h3>
+                            <p>Focus on education instead of paperwork with streamlined processes and automations.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="benefit-text">
+                            <h3>Enhanced Security</h3>
+                            <p>Keep student information secure with Firebase authentication and encrypted storage.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <div class="benefit-text">
+                            <h3>Real-time Updates</h3>
+                            <p>All changes are instantly reflected across the system for seamless collaboration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Success stories</span>
+                <h2>What Our Users Say</h2>
+                <p>Hear from educators who have transformed their institutions with our system</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"This system has revolutionized how we manage student information. It's intuitive, fast, and reliable. The time savings alone justify the investment."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith">
+                        <div class="author-info">
+                            <h4>John Smith</h4>
+                            <p>School Administrator, Lincoln High</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"The search functionality saves me hours every week. I can find any student's information in seconds, and the analytics dashboard provides insights we never had before."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Department Head, Westview College</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"As a teacher, I appreciate how easy it is to access student details. The interface is clean and user-friendly, and the mobile access means I can update grades from anywhere."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Chen">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Professor, East Tech University</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to transform your student management?</h2>
+            <p>Join hundreds of institutions already benefiting from our platform.</p>
+            <a href="login.html" class="btn btn-primary"><i class="fas fa-rocket"></i> Get Started Now</a>
+            <div class="cta-cards">
+                <div class="cta-card">
+                    <div class="card-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our dedicated team is always ready to help</p>
+                </div>
+                <div class="cta-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Quick Setup</h3>
+                    <p>Be up and running in less than a day</p>
+                </div>
+                <div class="cta-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Platform</h3>
+                    <p>Your data is protected with enterprise-grade security</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2><span class="highlight">Edu</span>Manage</h2>
+                    <p>Student Management System</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li><a href="#benefits"><i class="fas fa-chevron-right"></i> Benefits</a></li>
+                        <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="login.html"><i class="fas fa-chevron-right"></i> Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> support@sms.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (123) 456-7890</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Learning City</p>
+                    <a href="#" class="btn btn-outline">Contact Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 EduManage. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="landing-script.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAwZ5R3vLbUhZ0Ve9xfDplKpLFxn6t8jco",
+            authDomain: "student-management-syste-a8394.firebaseapp.com",
+            projectId: "student-management-syste-a8394",
+            storageBucket: "student-management-syste-a8394.firebasestorage.app",
+            messagingSenderId: "218048562419",
+            appId: "1:218048562419:web:1cd92e1fcd416c5cc96386",
+            measurementId: "G-QX15K5RB8F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // Check if user is already logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, update UI accordingly
+                const loginBtn = document.querySelector('.btn-login');
+                if (loginBtn) {
+                    loginBtn.innerHTML = '<i class="fas fa-user"></i> Dashboard';
+                    loginBtn.href = 'index.html';
+                }
+                
+                // Update Get Started button too
+                const getStartedBtn = document.querySelector('.hero-buttons .btn-primary');
+                if (getStartedBtn) {
+                    getStartedBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Go to Dashboard';
+                    getStartedBtn.href = 'index.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

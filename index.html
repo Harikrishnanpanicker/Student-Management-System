@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><span class="highlight">Edu</span>Manage</h1>
+                <p>Manage your students efficiently</p>
+            </div>
+            <div class="user-actions">
+                <!-- User info will be inserted here by JavaScript -->
+                <button onclick="logoutUser()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn" data-tab="dashboard">Dashboard</button>
+            <button class="tab-btn active" data-tab="add-student">Add Student</button>
+            <button class="tab-btn" data-tab="search-student">Search Student</button>
+            <button class="tab-btn" data-tab="all-students">All Students</button>
+            <button class="tab-btn" data-tab="attendance">Attendance</button>
+            <button class="tab-btn active" data-tab="academic">Academic</button>
+        </div>
+        
+        <div class="tab-content">
+            <!-- Dashboard Overview -->
+            <div class="tab-pane" id="dashboard">
+                <h2>Dashboard Overview</h2>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Students</h3>
+                            <p id="total-students">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Courses</h3>
+                            <p id="total-courses">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Batches</h3>
+                            <p id="total-batches">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Recent Activity</h3>
+                            <p id="recent-activity">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Students by Course</h3>
+                        <canvas id="course-chart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Students by Batch</h3>
+                        <canvas id="batch-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="recent-students">
+                    <h3>Recently Added Students</h3>
+                    <div id="recent-students-list" class="recent-students-container">
+                        <p>Loading recent students...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add Student Form -->
+            <div class="tab-pane active" id="add-student">
+                <h2>Add New Student</h2>
+                <form id="student-form">
+                    <div class="form-group">
+                        <label for="student-id">Student ID*</label>
+                        <input type="text" id="student-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name*</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number*</label>
+                        <input type="tel" id="mobile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Course*</label>
+                        <select id="course" required>
+                            <option value="">Select Course</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Business">Business</option>
+                            <option value="Arts">Arts</option>
+                            <option value="Medicine">Medicine</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="batch">Batch/Year*</label>
+                        <input type="text" id="batch" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Search Student -->
+            <div class="tab-pane" id="search-student">
+                <h2>Search Student</h2>
+                <div class="search-container">
+                    <input type="text" id="search-id" placeholder="Enter Student ID">
+                    <button id="search-btn" class="btn">Search</button>
+                </div>
+                <div id="search-result" class="student-details">
+                    <!-- Search results will appear here -->
+                </div>
+            </div>
+            
+            <!-- All Students -->
+            <div class="tab-pane" id="all-students">
+                <h2>All Students</h2>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <label for="filter-course">Filter by Course:</label>
+                        <select id="filter-course">
+                            <option value="">All Courses</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-batch">Filter by Batch:</label>
+                        <select id="filter-batch">
+                            <option value="">All Batches</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sort-by">Sort by:</label>
+                        <select id="sort-by">
+                            <option value="name">Name</option>
+                            <option value="studentId">ID</option>
+                            <option value="course">Course</option>
+                            <option value="batch">Batch</option>
+                            <option value="createdAt">Date Added</option>
+                        </select>
+                    </div>
+                    
+                    <button id="apply-filters" class="btn btn-primary">Apply</button>
+                    <button id="reset-filters" class="btn">Reset</button>
+                </div>
+                <div class="export-options">
+                    <button id="export-csv" class="btn btn-secondary">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button id="export-pdf" class="btn btn-secondary">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                    <button id="print-list" class="btn btn-secondary">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                </div>
+                <div class="students-list">
+                    <table id="students-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Mobile</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-list">
+                            <!-- Student list will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Attendance Tracking -->
+            <div class="tab-pane" id="attendance">
+                <h2>Student Attendance</h2>
+                
+                <div class="attendance-controls">
+                    <div class="form-group">
+                        <label for="attendance-date">Date</label>
+                        <input type="date" id="attendance-date" value="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendance-course">Course</label>
+                        <select id="attendance-course">
+                            <option value="">Select Course</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendance-batch">Batch</label>
+                        <select id="attendance-batch">
+                            <option value="">Select Batch</option>
+                        </select>
+                    </div>
+                    
+                    <button id="load-attendance" class="btn btn-primary">Load Students</button>
+                </div>
+                
+                <div class="attendance-list">
+                    <table id="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-students">
+                            <tr>
+                                <td colspan="4">Select a course and batch to load students</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="attendance-actions">
+                        <button id="save-attendance" class="btn btn-primary" disabled>Save Attendance</button>
+                        <button id="mark-all-present" class="btn btn-secondary" disabled>Mark All Present</button>
+                        <button id="mark-all-absent" class="btn btn-danger" disabled>Mark All Absent</button>
+                    </div>
+                </div>
+                
+                <div class="attendance-reports">
+                    <h3>Attendance Reports</h3>
+                    <div class="report-controls">
+                        <div class="form-group">
+                            <label for="report-student">Student ID</label>
+                            <input type="text" id="report-student" placeholder="Enter Student ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-month">Month</label>
+                            <select id="report-month">
+                                <option value="">Select Month</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <button id="generate-report" class="btn btn-primary">Generate Report</button>
+                    </div>
+                    
+                    <div class="report-content">
+                        <div class="report-summary">
+                            <div class="summary-card">
+                                <h4>Attendance Summary</h4>
+                                <div class="summary-stats">
+                                    <div class="stat">
+                                        <span class="label">Total Classes:</span>
+                                        <span id="total-classes">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="label">Present:</span>
+                                        <span id="total-present">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="label">Absent:</span>
+                                        <span id="total-absent">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="label">Late:</span>
+                                        <span id="total-late">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="label">Attendance Rate:</span>
+                                        <span id="attendance-rate">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-details">
+                            <h4>Detailed Attendance Record</h4>
+                            <table id="attendance-report-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Course</th>
+                                        <th>Status</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendance-report-body">
+                                    <!-- Report data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="report-actions">
+                            <button id="export-report-csv" class="btn btn-secondary">
+                                <i class="fas fa-file-csv"></i> Export CSV
+                            </button>
+                            <button id="export-report-pdf" class="btn btn-secondary">
+                                <i class="fas fa-file-pdf"></i> Export PDF
+                            </button>
+                            <button id="print-report" class="btn btn-secondary">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="attendance-calendar">
+                    <h3>Attendance Calendar</h3>
+                    <div id="attendance-calendar" class="calendar-grid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Academic Section -->
+            <div class="tab-pane" id="academic">
+                <h2>Academic Management</h2>
+                
+                <div class="academic-controls">
+                    <div class="grade-submission">
+                        <h3>Submit Grade</h3>
+                                    <div class="form-group">
+                            <label for="grade-student-id">Student ID</label>
+                            <input type="text" id="grade-student-id" required>
+                                    </div>
+                                    <div class="form-group">
+                            <label for="grade-course">Course</label>
+                            <select id="grade-course" required>
+                                            <option value="">Select Course</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Business">Business</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Medicine">Medicine</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                            <label for="grade-value">Grade (0-100)</label>
+                            <input type="number" id="grade-value" min="0" max="100" required>
+                                    </div>
+                                    <div class="form-group">
+                            <label for="grade-semester">Semester</label>
+                            <select id="grade-semester" required>
+                                            <option value="">Select Semester</option>
+                                <option value="Fall 2023">Fall 2023</option>
+                                <option value="Spring 2024">Spring 2024</option>
+                                <option value="Summer 2024">Summer 2024</option>
+                                        </select>
+                                    </div>
+                        <button id="submit-grade" class="btn btn-primary">Submit Grade</button>
+                            </div>
+                    
+                    <div class="grade-viewing">
+                        <h3>View Grades</h3>
+                                    <div class="form-group">
+                            <label for="view-grade-student-id">Student ID</label>
+                            <input type="text" id="view-grade-student-id" required>
+                                    </div>
+                        <button id="view-grades" class="btn btn-primary">View Grades</button>
+                                </div>
+                                            </div>
+                
+                <div class="grade-display">
+                    <div id="grade-summary" class="grade-summary">
+                        <!-- Grade summary will be displayed here -->
+                                            </div>
+                    
+                    <div class="grade-table">
+                        <h3>Grade History</h3>
+                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Semester</th>
+                                    <th>Grade</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                            <tbody id="grade-table-body">
+                                <!-- Grade records will be displayed here -->
+                                            </tbody>
+                                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this right after the tab-content div and before the modals -->
+        <div class="admin-actions">
+            <button id="add-sample-data" class="btn btn-primary">
+                <i class="fas fa-database"></i> Add Sample Data
+            </button>
+        </div>
+    </div>
+
+    <!-- Student Details Modal -->
+    <div id="student-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Student Details</h2>
+            <div id="modal-content"></div>
+            <div class="modal-actions">
+                <button id="edit-student" class="btn btn-secondary">Edit</button>
+                <button id="delete-student" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Student Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-edit">&times;</span>
+            <h2>Edit Student</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <label for="edit-name">Full Name*</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email*</label>
+                    <input type="email" id="edit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-mobile">Mobile Number*</label>
+                    <input type="tel" id="edit-mobile" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-address">Address</label>
+                    <textarea id="edit-address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-course">Course*</label>
+                    <select id="edit-course" required>
+                        <option value="">Select Course</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Business">Business</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Medicine">Medicine</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-batch">Batch/Year*</label>
+                    <input type="text" id="edit-batch" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Update Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAwZ5R3vLbUhZ0Ve9xfDplKpLFxn6t8jco",
+            authDomain: "student-management-syste-a8394.firebaseapp.com",
+            projectId: "student-management-syste-a8394",
+            storageBucket: "student-management-syste-a8394.firebasestorage.app",
+            messagingSenderId: "218048562419",
+            appId: "1:218048562419:web:1cd92e1fcd416c5cc96386",
+            measurementId: "G-QX15K5RB8F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // Make Firebase available globally
+        window.firebaseApp = app;
+
+        const auth = getAuth();
+        
+        // Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // User is not logged in, redirect to login page
+                window.location.href = "login.html";
+            }
+        });
+        
+        // Add a logout function
+        window.logoutUser = function() {
+            signOut(auth).then(() => {
+                // Sign-out successful, redirect to login page
+                window.location.href = "login.html";
+            }).catch((error) => {
+                // An error happened
+                console.error("Logout error:", error);
+            });
+        };
+    </script>
+    
+    <!-- Firebase Firestore -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js"></script>
+    
+    <!-- Custom JS -->
+    <script type="module" src="app.js"></script>
+    <script src="academic-features.js"></script>
+    <script type="module" src="attendance-report.js"></script>
+    <script type="module" src="grading-system.js"></script>
+
+    <!-- Add this script at the end of your body tag -->
+    <script type="module">
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+        import { StudentManagementSystem } from './app.js';
+
+        // Initialize StudentManagementSystem when Firebase is ready
+        window.addEventListener('load', () => {
+            if (window.firebaseApp) {
+                try {
+                    window.studentManagementSystem = new StudentManagementSystem();
+                    console.log('StudentManagementSystem initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing StudentManagementSystem:', error);
+                }
+            }
+        });
+    </script>
+
+    <!-- Add this right before the closing </body> tag -->
+    <script>
+        // Make loadAllStudents available globally
+        window.loadAllStudents = function() {
+            // This will call the function from the module
+            document.dispatchEvent(new CustomEvent('loadAllStudentsEvent'));
+        };
+    </script>
+
+    <!-- Add this CSS to your existing styles -->
+    <style>
+    .analytics-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .trends-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .trend-card {
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .trend-card h4 {
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+
+    .trend-card canvas {
+        width: 100% !important;
+        height: 250px !important;
+    }
+
+    .insights-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .insight-card {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .insight-card i {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        color: #3498db;
+    }
+
+    .insight-content h5 {
+        margin: 0;
+        color: #2c3e50;
+    }
+
+    .insight-content p {
+        margin: 0.5rem 0 0;
+        color: #7f8c8d;
+    }
+
+    .performance-controls {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .performance-controls .btn {
+        margin-bottom: 0.5rem;
+    }
+
+    .performance-controls small {
+        display: block;
+        color: #7f8c8d;
+    }
+
+    .attendance-reports {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .report-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .report-summary {
+        margin-bottom: 2rem;
+    }
+
+    .summary-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .summary-stats {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .stat {
+        text-align: center;
+    }
+
+    .stat .label {
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat span:last-child {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .report-details {
+        margin-bottom: 2rem;
+    }
+
+    .report-details table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    .report-details th,
+    .report-details td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .report-details th {
+        background: #f8f9fa;
+        font-weight: 600;
+    }
+
+    .report-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        padding: 0.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        background: white;
+    }
+
+    .calendar-day.has-attendance {
+        background: #e3f2fd;
+        border-color: #90caf9;
+    }
+
+    .calendar-day.today {
+        background: #fff3e0;
+        border-color: #ffb74d;
+    }
+
+    /* Academic Section Styles */
+    .academic-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .grade-submission,
+    .grade-viewing {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .grade-submission h3,
+    .grade-viewing h3 {
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+    
+    .grade-display {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .grade-summary {
+        margin-bottom: 2rem;
+    }
+    
+    .grade-table {
+        overflow-x: auto;
+    }
+    
+    .grade-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    
+    .grade-table th,
+    .grade-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .grade-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+    }
+    
+    .grade-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+    
+    .grade-badge.excellent {
+        background: #d4edda;
+        color: #155724;
+    }
+    
+    .grade-badge.good {
+        background: #cce5ff;
+        color: #004085;
+    }
+    
+    .grade-badge.satisfactory {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .grade-badge.passing {
+        background: #f8d7da;
+        color: #721c24;
+    }
+    
+    .grade-badge.failing {
+        background: #dc3545;
+        color: white;
+    }
+    
+    .summary-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+    
+    .stat {
+        text-align: center;
+    }
+    
+    .stat .label {
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat span:last-child {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    </style>
+
+    <!-- Add this script right after the form -->
+    <script type="module">
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+    // Create a single instance of Firestore
+    const firestore = getFirestore(window.firebaseApp);
+
+    // Function to generate attendance report
+    async function generateAttendanceReport(studentId, month) {
+        try {
+            // Get student details
+            const studentQuery = query(collection(firestore, "students"), where("studentId", "==", studentId));
+            const studentSnapshot = await getDocs(studentQuery);
+            
+            if (studentSnapshot.empty) {
+                throw new Error('Student not found');
+            }
+            
+            const student = studentSnapshot.docs[0].data();
+            
+            // Get attendance records for the selected month
+            const year = new Date().getFullYear();
+            const startDate = `${year}-${month.padStart(2, '0')}-01`;
+            const endDate = `${year}-${month.padStart(2, '0')}-31`;
+            
+            const attendanceQuery = query(
+                collection(firestore, "attendance"),
+                where("date", ">=", startDate),
+                where("date", "<=", endDate)
+            );
+            
+            const attendanceSnapshot = await getDocs(attendanceQuery);
+            const attendanceRecords = [];
+            
+            attendanceSnapshot.forEach(doc => {
+                const data = doc.data();
+                if (data.students && data.students[studentId]) {
+                    attendanceRecords.push({
+                        date: data.date,
+                        course: data.course,
+                        batch: data.batch,
+                        status: data.students[studentId].status,
+                        notes: data.students[studentId].notes || ''
+                    });
+                }
+            });
+            
+            // Sort records by date
+            attendanceRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            return {
+                student,
+                records: attendanceRecords
+            };
+        } catch (error) {
+            console.error('Error generating report:', error);
+            throw error;
+        }
+    }
+
+    // Function to update report display
+    function updateReportDisplay(reportData) {
+        const { student, records } = reportData;
+        
+        // Calculate summary statistics
+        const totalClasses = records.length;
+        const present = records.filter(r => r.status === 'present').length;
+        const absent = records.filter(r => r.status === 'absent').length;
+        const late = records.filter(r => r.status === 'late').length;
+        const attendanceRate = totalClasses > 0 ? ((present + late/2) / totalClasses * 100).toFixed(1) : 0;
+        
+        // Update summary statistics
+        document.getElementById('total-classes').textContent = totalClasses;
+        document.getElementById('total-present').textContent = present;
+        document.getElementById('total-absent').textContent = absent;
+        document.getElementById('total-late').textContent = late;
+        document.getElementById('attendance-rate').textContent = `${attendanceRate}%`;
+        
+        // Update detailed records
+        const reportBody = document.getElementById('attendance-report-body');
+        if (records.length === 0) {
+            reportBody.innerHTML = '<tr><td colspan="4">No attendance records found for this month</td></tr>';
+        } else {
+            reportBody.innerHTML = records.map(record => `
+                <tr>
+                    <td>${new Date(record.date).toLocaleDateString()}</td>
+                    <td>${record.course} (${record.batch})</td>
+                    <td>
+                        <span class="status-badge ${record.status}">
+                            ${record.status.charAt(0).toUpperCase() + record.status.slice(1)}
+                        </span>
+                    </td>
+                    <td>${record.notes || '-'}</td>
+                </tr>
+            `).join('');
+        }
+        
+        // Enable export buttons
+        document.getElementById('export-report-csv').disabled = false;
+        document.getElementById('export-report-pdf').disabled = false;
+        document.getElementById('print-report').disabled = false;
+    }
+
+    // Event listener for generate report button
+    document.getElementById('generate-report').addEventListener('click', async () => {
+        const studentId = document.getElementById('report-student').value.trim();
+        const month = document.getElementById('report-month').value;
+        
+        if (!studentId || !month) {
+            alert('Please enter both Student ID and select a month');
+            return;
+        }
+        
+        try {
+            const reportData = await generateAttendanceReport(studentId, month);
+            updateReportDisplay(reportData);
+            } catch (error) {
+            alert('Error generating report: ' + error.message);
+        }
+    });
+
+    // Export to CSV
+    document.getElementById('export-report-csv').addEventListener('click', () => {
+        const table = document.getElementById('attendance-report-table');
+        const rows = Array.from(table.querySelectorAll('tr'));
+        
+        const csvContent = rows.map(row => {
+            const cells = Array.from(row.querySelectorAll('th, td'));
+            return cells.map(cell => {
+                const text = cell.textContent.replace(/<[^>]*>/g, '').replace(/"/g, '""');
+                return `"${text}"`;
+            }).join(',');
+        }).join('\n');
+        
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'attendance_report.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    // Export to PDF
+    document.getElementById('export-report-pdf').addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const studentId = document.getElementById('report-student').value;
+        const month = document.getElementById('report-month').value;
+        const monthName = new Date(2000, parseInt(month) - 1).toLocaleString('default', { month: 'long' });
+        
+        // Add title and info
+        doc.setFontSize(16);
+        doc.text('Attendance Report', 14, 22);
+        
+        doc.setFontSize(12);
+        doc.text(`Student ID: ${studentId}`, 14, 32);
+        doc.text(`Month: ${monthName} ${new Date().getFullYear()}`, 14, 38);
+        
+        // Add summary
+        doc.text('Summary:', 14, 48);
+        doc.setFontSize(10);
+        doc.text(`Total Classes: ${document.getElementById('total-classes').textContent}`, 14, 56);
+        doc.text(`Present: ${document.getElementById('total-present').textContent}`, 14, 62);
+        doc.text(`Absent: ${document.getElementById('total-absent').textContent}`, 14, 68);
+        doc.text(`Late: ${document.getElementById('total-late').textContent}`, 14, 74);
+        doc.text(`Attendance Rate: ${document.getElementById('attendance-rate').textContent}`, 14, 80);
+        
+        // Add table
+        doc.autoTable({
+            html: '#attendance-report-table',
+            startY: 90,
+            styles: { fontSize: 8 },
+            headStyles: { fillColor: [52, 152, 219] }
+        });
+        
+        doc.save('attendance_report.pdf');
+    });
+
+    // Print report
+    document.getElementById('print-report').addEventListener('click', () => {
+        const printWindow = window.open('', '_blank');
+        const studentId = document.getElementById('report-student').value;
+        const month = document.getElementById('report-month').value;
+        const monthName = new Date(2000, parseInt(month) - 1).toLocaleString('default', { month: 'long' });
+        
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Attendance Report</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; }
+                    h1 { color: #2c3e50; }
+                    .student-info { margin: 20px 0; }
+                    .summary-stats { 
+                        display: grid; 
+                        grid-template-columns: repeat(5, 1fr); 
+                        gap: 1rem; 
+                        margin: 20px 0;
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 8px;
+                    }
+                    .stat { text-align: center; }
+                    .stat .label { color: #666; }
+                    .stat span:last-child { font-size: 1.2rem; font-weight: bold; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+                    th { background-color: #f8f9fa; }
+                    .status-badge {
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        font-size: 0.9em;
+                    }
+                    .status-badge.present { background: #d4edda; color: #155724; }
+                    .status-badge.absent { background: #f8d7da; color: #721c24; }
+                    .status-badge.late { background: #fff3cd; color: #856404; }
+                    @media print {
+                        body { padding: 0; }
+                        .no-print { display: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>Attendance Report</h1>
+                <div class="student-info">
+                    <p><strong>Student ID:</strong> ${studentId}</p>
+                    <p><strong>Month:</strong> ${monthName} ${new Date().getFullYear()}</p>
+                </div>
+                ${document.querySelector('.report-content').innerHTML}
+                <div class="no-print" style="margin-top: 20px; text-align: center;">
+                    <button onclick="window.print()">Print Report</button>
+                </div>
+            </body>
+            </html>
+        `);
+        
+        printWindow.document.close();
+    });
+
+    // Add styles for status badges
+    const style = document.createElement('style');
+    style.textContent = `
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .status-badge.present {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-badge.absent {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-badge.late {
+            background: #fff3cd;
+            color: #856404;
+        }
+    `;
+    document.head.appendChild(style);
+    </script>
+</body>
+</html> 
